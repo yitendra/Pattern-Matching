@@ -9,7 +9,7 @@ class Home extends Component {
     pm=()=>{
         setTimeout(()=>{
         if(this.state.pattern!=='' && this.state.text!=='')
-        this.naive(this.state.text,this.state.pattern)}
+        console.log(this.rabinKarp(this.state.text,this.state.pattern))}
         ,100)
     }
 
@@ -21,13 +21,30 @@ class Home extends Component {
                 if(text[i+j]!==pattern[j])break;
             }
             if(j===pattern.length){
-                console.log("Pattern Matched at index: "+i)
-                break;    
+                //console.log("Pattern Matched at index: "+i)
+                return i;   //Return the found index
             }
         }
+        return -1;      //-1 is not found
     }
 
+    //Finding Hash Value for Rabin Karp algo
+    hash=(text)=>{
+        let hash=0;
+          for(let i=0; i<text.length;i++){
+              hash=hash+text.charCodeAt(i)
+          }
+          return hash;
+      }
+
     //RabinKarp String Matching Algorithm
+    rabinKarp=(text,pattern)=>{
+        let hpat=this.hash(pattern);
+        for(let i=0; i<=text.length-pattern.length; i++){
+            if(this.hash(text.slice(i,i+pattern.length))===hpat)console.log("hash matched")
+        }
+        return -1
+    }
 
     handleText=(e)=>{
         this.setState({text:e.target.value})
