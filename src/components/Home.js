@@ -41,7 +41,7 @@ class Home extends Component {
     rabinKarp=(text,pattern)=>{
         let hpat=this.hash(pattern);
         for(let i=0; i<=text.length-pattern.length; i++){
-            if(this.hash(text.slice(i,i+pattern.length))===hpat)console.log("hash matched")
+            if(this.hash(text.slice(i,i+pattern.length))===hpat && this.naive(text.slice(i,i+pattern.length),pattern)>=0)return i;
         }
         return -1
     }
