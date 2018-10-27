@@ -7,21 +7,27 @@ class Home extends Component {
     }
 
     pm=()=>{
-        //setTimeout(()=>console.log(this.state.text+this.state.pattern),100)
-        if(this.state.pattern!=='')
-        this.naive(this.state.text,this.state.pattern);
+        setTimeout(()=>{
+        if(this.state.pattern!=='' && this.state.text!=='')
+        this.naive(this.state.text,this.state.pattern)}
+        ,100)
     }
 
     // Naive String Matching Algorithm
     naive=(text,pattern)=>{
-        for(let i=0; i<text.length-pattern.length; i++){
-            let j=0;
+        for(let i=0; i<=(text.length-pattern.length); i++){
+            let j;
             for(j=0; j<pattern.length; j++){
-                if(text[i+j]!==pattern[i])break;
+                if(text[i+j]!==pattern[j])break;
             }
-            if(j===pattern.length)console.log("Pattern Matched at index: "+i)
+            if(j===pattern.length){
+                console.log("Pattern Matched at index: "+i)
+                break;    
+            }
         }
     }
+
+    //RabinKarp String Matching Algorithm
 
     handleText=(e)=>{
         this.setState({text:e.target.value})
