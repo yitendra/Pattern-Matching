@@ -9,7 +9,9 @@ class Home extends Component {
     pm=()=>{
         setTimeout(()=>{
         if(this.state.pattern!=='' && this.state.text!=='')
-        console.log(this.rabinKarp(this.state.text,this.state.pattern))}
+        console.log(this.kmp(this.state.text,this.state.pattern))
+        // console.log(this.prefix(this.state.pattern))
+            }
         ,100)
     }
 
@@ -44,6 +46,48 @@ class Home extends Component {
             if(this.hash(text.slice(i,i+pattern.length))===hpat && this.naive(text.slice(i,i+pattern.length),pattern)>=0)return i;
         }
         return -1
+    }
+
+    //KMP algorithm
+    kmp=(text,pattern)=>{
+          let textIndex = 0;
+          let patternIndex = 0;
+        
+          const patternTable = this.prefix(pattern);
+        
+          while (textIndex < text.length) {
+            if (text[textIndex] === pattern[patternIndex]) {
+              // We've found a match.
+              if (patternIndex === pattern.length - 1) {
+                return (textIndex - pattern.length) + 1;
+              }
+              patternIndex += 1;
+              textIndex += 1;
+            } else if (patternIndex > 0) {
+              patternIndex = patternTable[patternIndex - 1];
+            } else {
+              patternIndex = 0;
+              textIndex += 1;
+            }
+          }
+        
+          return -1;
+    }
+
+    //findiPrefix Function
+    prefix=(S)=>{
+        const p=[];
+        p[0]=0;
+        let j=0;
+        for (let i = 1; i < S.length; i++) {
+            while (j > 0 && S[j] !== S[i])
+                j = p[j-1];
+    
+            if (S[j] === S[i])
+                j++;
+            p[i] = j;
+        }   
+        return p;
     }
 
     handleText=(e)=>{
