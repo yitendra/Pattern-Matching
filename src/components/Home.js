@@ -133,9 +133,9 @@ class Home extends Component {
                     <form>
                         <div className="form-group textpattern">
                             <label htmlFor="text">Text : </label>
-                            <input type="text" className="form-conthol" name="" id="text" placeholder="Enter Text" onChange={this.handleText} />
+                            <input type="text" className="form-control" name="" id="text" placeholder="Enter Text" onChange={this.handleText} />
                             <label htmlFor="pattern">Pattern : </label>
-                            <input type="text" className="form-conthol" name="" id="pattern" placeholder="Enter Pattern" onChange={this.handlePattern} />
+                            <input type="text" className="form-control" name="" id="pattern" placeholder="Enter Pattern" onChange={this.handlePattern} />
                         </div>
                     </form>
 
@@ -145,7 +145,13 @@ class Home extends Component {
                     
                    </div>
                    
-                   <div className="container">
+                <hr/>
+                    <div className="container">
+                        {/* Display text and pattern matched to it */}
+                        {this.state.text.split(this.state.pattern)}
+                    </div>
+
+                   <div className="container timeTable">
                         {/* Create Table to show Time taken by algorithms */}
                     <table className="table">
                         <thead>
